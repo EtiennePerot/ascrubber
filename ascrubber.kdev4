@@ -1,0 +1,4 @@
+[Project]
+Name=ascrubber
+Manager=KDevCMakeManager
+VersionControl=kdevgit

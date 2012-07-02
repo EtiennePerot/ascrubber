@@ -31,13 +31,28 @@
 
 #include "FLAC++/decoder.h"
 #include "FLAC++/encoder.h"
+#include "FLAC++/metadata.h"
+#include <vector>
 
-#define PROGRESS_BAR_LENGTH 40
+#define FLACSCRUBBER_DEFAULT_FORCENONZERO false
+#define FLACSCRUBBER_DEFAULT_FIRSTSAMPLESIZE 4096
+#define FLACSCRUBBER_DEFAULT_LASTSAMPLESIZE 2048
+#define FLACSCRUBBER_DEFAULT_FIRSTSAMPLESSCRUBRATE 1
+#define FLACSCRUBBER_DEFAULT_LASTSAMPLESSCRUBRATE 1
+#define FLACSCRUBBER_DEFAULT_OTHERSAMPLESSCRUBRATE 0.2
+#define FLACSCRUBBER_DEFAULT_FIRSTSAMPLESMAXOFFSET 256
+#define FLACSCRUBBER_DEFAULT_LASTSAMPLESMAXOFFSET 256
+#define FLACSCRUBBER_DEFAULT_OTHERSAMPLESMAXOFFSET 2
+#define FLACSCRUBBER_DEFAULT_ALLOWEDTAGS "title,artist,album,albumartist,date,tracknumber,tracktotal,totaltracks,discnumber,disctotal,totaldiscs,bpm,subtitle,musicbrainz_trackid,musicbrainz_albumid,musicbrainz_artistid,musicbrainz_albumartistid,musicbrainz_discid,musicbrainz_releasegroupid,musicbrainz_workid"
+
+#define FLACSCRUBBER_SEEKTABLE_SECONDS 10
+#define FLACSCRUBBER_PROGRESS_BAR_LENGTH 40
 
 class FLACScrubber : public FLAC::Decoder::File
 {
 	public:
 		FLACScrubber(std::string file);
+		~FLACScrubber();
 		void setForceNonZero(bool forceNonZero);
 		void scrubFirstSamples(int maxOffset);
 		void scrubLastSamples(int maxOffset);
@@ -47,6 +62,7 @@ class FLACScrubber : public FLAC::Decoder::File
 		void setFirstSamplesScrubRate(float rate);
 		void setLastSamplesScrubRate(float rate);
 		void setOtherSamplesScrubRate(float rate);
+		void setAllowedTags(std::vector<std::string> * allowedTags);
 		bool hasError();
 		void processEverything(bool showProgress);
 		void cancel();
@@ -56,22 +72,29 @@ class FLACScrubber : public FLAC::Decoder::File
 		virtual void metadata_callback(const FLAC__StreamMetadata * metadata);
 		virtual void error_callback(FLAC__StreamDecoderErrorStatus status);
 	private:
+		bool aEncoderInitialized = false;
 		bool aShowProgress = false;
 		int aLastPercentage = -1;
 		bool aForceNonZero = false;
-		int aFirstSamplesSize = 4096;
-		int aLastSamplesSize = 2048;
-		float aFirstSamplesScrubRate = 1.f;
-		float aLastSamplesScrubRate = 1.f;
-		float aOtherSamplesScrubRate = .2f;
-		int aFirstSamplesMaxOffset = 256;
-		int aLastSamplesMaxOffset = 256;
-		int aOtherSamplesMaxOffset = 2;
+		int aFirstSamplesSize = FLACSCRUBBER_DEFAULT_FIRSTSAMPLESIZE;
+		int aLastSamplesSize = FLACSCRUBBER_DEFAULT_LASTSAMPLESIZE;
+		float aFirstSamplesScrubRate = FLACSCRUBBER_DEFAULT_FIRSTSAMPLESSCRUBRATE;
+		float aLastSamplesScrubRate = FLACSCRUBBER_DEFAULT_LASTSAMPLESSCRUBRATE;
+		float aOtherSamplesScrubRate = FLACSCRUBBER_DEFAULT_OTHERSAMPLESSCRUBRATE;
+		int aFirstSamplesMaxOffset = FLACSCRUBBER_DEFAULT_FIRSTSAMPLESMAXOFFSET;
+		int aLastSamplesMaxOffset = FLACSCRUBBER_DEFAULT_LASTSAMPLESMAXOFFSET;
+		int aOtherSamplesMaxOffset = FLACSCRUBBER_DEFAULT_OTHERSAMPLESMAXOFFSET;
+		std::vector<std::string> * aAllowedTags;
 		FLAC__int64 aTotalSamples;
+		FLAC__int32 aSampleRate;
+		FLAC__StreamMetadata * aTags = nullptr;
+		FLAC__StreamMetadata * aSeektable = nullptr;
+		FLAC__StreamMetadata ** aMetadata = new FLAC__StreamMetadata * [2];
 		std::string aOriginalFile;
 		std::string aScrubbedFile;
 		std::string aError;
 		FLAC::Encoder::File aEncoder;
+		void initializeEncoder();
 		void error(std::string errorMessage);
 		void error(bool condition, std::string errorMessage);
 		FLAC__int32 getRandomSample(int sampleNumber);

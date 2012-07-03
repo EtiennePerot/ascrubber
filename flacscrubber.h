@@ -87,6 +87,7 @@ class FLACScrubber : public FLAC::Decoder::File
 		std::vector<std::string> * aAllowedTags;
 		FLAC__int64 aTotalSamples;
 		FLAC__int32 aSampleRate;
+		FLAC__int32 aMaxSampleValue;
 		FLAC__StreamMetadata * aTags = nullptr;
 		FLAC__StreamMetadata * aSeektable = nullptr;
 		FLAC__StreamMetadata ** aMetadata = new FLAC__StreamMetadata * [2];
@@ -99,6 +100,7 @@ class FLACScrubber : public FLAC::Decoder::File
 		void error(bool condition, std::string errorMessage);
 		FLAC__int32 getRandomSample(int sampleNumber);
 		FLAC__int32 getRandomSampleInner(int maxOffset, float rate);
+		FLAC__int32 clampSample(FLAC__int32 sampleData);
 		void showProgress(FLAC__int64 currentSample);
 };
 

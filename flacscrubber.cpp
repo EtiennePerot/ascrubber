@@ -164,7 +164,7 @@ inline FLAC__int32 FLACScrubber::getRandomSample(int sampleNumber) {
 	if(sampleNumber <= aFirstSamplesSize) {
 		return getRandomSampleInner(aFirstSamplesMaxOffset, aFirstSamplesScrubRate);
 	}
-	if(sampleNumber >= aTotalSamples - aLastSamplesMaxOffset) {
+	if(sampleNumber >= aTotalSamples - aLastSamplesSize) {
 		return getRandomSampleInner(aLastSamplesMaxOffset, aLastSamplesScrubRate);
 	}
 	if(aOtherSamplesMaxOffset) {
@@ -174,6 +174,16 @@ inline FLAC__int32 FLACScrubber::getRandomSample(int sampleNumber) {
 		return 1;
 	}
 	return 0;
+}
+
+inline FLAC__int32 FLACScrubber::clampSample(FLAC__int32 sampleData) {
+	if(sampleData > aMaxSampleValue) {
+		return aMaxSampleValue;
+	}
+	if(sampleData < -aMaxSampleValue) {
+		return -aMaxSampleValue;
+	}
+	return sampleData;
 }
 
 void FLACScrubber::error(std::string errorMessage) {
@@ -246,19 +256,15 @@ FLAC__StreamDecoderWriteStatus FLACScrubber::write_callback(const FLAC__Frame * 
 	// Do the actual scrubbing
 	unsigned int blockSize = frame->header.blocksize;
 	FLAC__int64 sampleNumber = frame->header.number.sample_number;
-	FLAC__int32 ** newBuffer = new FLAC__int32 * [numChannels];
-	for(int channel = 0; channel < numChannels; channel++) {
-		newBuffer[channel] = new FLAC__int32[blockSize];
-		for(int sample = 0; sample < blockSize; sample++) {
-			newBuffer[channel][sample] = buffer[channel][sample] + getRandomSample(sampleNumber);
-			sampleNumber++;
+	FLAC__int32 * newBuffer = new FLAC__int32[numChannels * blockSize];
+	for(int sample = 0; sample < blockSize; sample++) {
+		for(int channel = 0; channel < numChannels; channel++) {
+			newBuffer[channel + sample * numChannels] = clampSample(buffer[channel][sample] + getRandomSample(sampleNumber));
 		}
+		sampleNumber++;
 	}
 	showProgress(sampleNumber + blockSize);
-	aEncoder.process(newBuffer, blockSize);
-	for(int channel = 0; channel < numChannels; channel++) {
-		delete [] (newBuffer[channel]);
-	}
+	aEncoder.process_interleaved(newBuffer, blockSize);
 	delete [] newBuffer;
 	if(hasError()) {
 		return FLAC__STREAM_DECODER_WRITE_STATUS_ABORT;
@@ -271,6 +277,7 @@ void FLACScrubber::metadata_callback(const FLAC__StreamMetadata * metadata) {
 	if(metadata->type == FLAC__METADATA_TYPE_STREAMINFO) {
 		aTotalSamples = metadata->data.stream_info.total_samples;
 		aSampleRate = metadata->data.stream_info.sample_rate;
+		aMaxSampleValue = pow(2, metadata->data.stream_info.bits_per_sample - 1);
 		error(aEncoder.set_bits_per_sample(metadata->data.stream_info.bits_per_sample), "Cannot set bits per sample.");
 		error(aEncoder.set_channels(metadata->data.stream_info.channels), "Cannot set number of channels.");
 		error(aEncoder.set_sample_rate(aSampleRate), "Cannot set sample rate.");

@@ -1,6 +1,3 @@
-# Adapted from http://whispercast.org/trac/browser/trunk/cmake/FindFLAC.cmake
-# Edited by Etienne Perot to add FLAC++ library.
-
 # Copyright (c) 2009, Whispersoft s.r.l.
 # All rights reserved.
 #
@@ -29,13 +26,18 @@
 # THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#
+
+# ---------------------------------------------------------------------------
+
 # Finds FLAC library
 #
 #  FLAC_INCLUDE_DIR - where to find flac.h, etc.
 #  FLAC_LIBRARIES   - List of libraries when using FLAC.
 #  FLAC_FOUND       - True if FLAC found.
 #
+# Adapted from http://whispercast.org/trac/browser/trunk/cmake/FindFLAC.cmake
+# Edited by Etienne Perot to add FLAC++ library.
+
 
 if (FLAC_INCLUDE_DIR)
 	# Already in cache, be silent

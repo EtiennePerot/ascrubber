@@ -2,7 +2,7 @@ project(ascrubber)
 
 cmake_minimum_required(VERSION 2.4)
 
-list(APPEND CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
 SET(CMAKE_MODULE_PATH ${ascrubber_SOURCE_DIR}/CMake)
 

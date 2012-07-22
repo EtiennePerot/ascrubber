@@ -13,3 +13,5 @@ set(LIBS ${LIBS} ${FLAC_LIBRARIES})
 add_executable(ascrubber flacscrubber.cpp main.cpp)
 
 target_link_libraries(ascrubber ${LIBS})
+
+install(TARGETS ascrubber DESTINATION bin)

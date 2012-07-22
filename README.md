@@ -36,7 +36,9 @@ Since fingerprints are meant to be as hard to detect as possible, this program u
 Compiling
 ---------
 
-You need `libflac` and `libflac++`, which typically come with `flac` itself. You also need `cmake` and the rest of the regular build toolchain (`gcc` and friends).
+There is a package for [ascrubber in the AUR](https://aur.archlinux.org/packages.php?ID=61092).
+
+If you want to compile it manually, you need `libflac` and `libflac++`, which typically come with `flac` itself. You also need `cmake` and the rest of the regular build toolchain (`gcc` and friends).
 
 Once you have that, you can build it:
 
@@ -46,12 +48,13 @@ Once you have that, you can build it:
     # Generate build files
     mkdir build
     cd build
-    cmake ..
+    cmake -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
     # Compile it
     make
 
 The resulting binary should be located at `ascrubber/build/ascrubber`.
 
+If you want to install it system-side, you can can use `make install` to move the binary to `/usr/bin`.
 
 Usage
 -----

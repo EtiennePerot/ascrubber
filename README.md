@@ -10,11 +10,11 @@ Those recordings of sensitive plans that were given or leaked to you from a cert
 
 They are likely to be **fingerprinted**.
 
-Fingerprinting is the process of slightly modifying a file in order to encode information into it, without the overall function of the file looking any different at sight glance. It is the process of [steganographically][1] inserting a uniquely-identifying but impossible-to-detect piece of information into the file.
+Fingerprinting is the process of slightly modifying a file in order to encode information into it, without making the file substantially different; in fact, it is meant to be undetectably different from the true original file. It is the process of [steganographically][1] inserting a uniquely-identifying but very-hard-to-detect piece of information into the file.
 
-Then, should that file be published in a context where the source didn't intend that file to be published, that source can then recover this fingerprint out of the file, and know without doubt which entity caused the leak.
+Then, should that file be published in a context where the source didn't intend that file to be published, the source can then recover this fingerprint out of the file, and know without doubt which entity caused the leak.
 
-[Steganography][1] has its uses and is a legitimate means of private, covert communication. However, tracking people without telling them is not something the trackee would desire. This program attempts to give them the option to mitigate such tracking.
+[Steganography][1] has its uses and is a legitimate means of private, covert communication. However, using it to track people without telling them is not something the trackee would desire. This program attempts to give them the option to mitigate such tracking.
 
 Purpose
 -------

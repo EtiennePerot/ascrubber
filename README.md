@@ -36,7 +36,7 @@ Since fingerprints are meant to be as hard to detect as possible, this program u
 Compiling
 ---------
 
-There is a package for [ascrubber in the AUR](https://aur.archlinux.org/packages.php?ID=61092).
+There is a package for [ascrubber in the AUR](https://aur.archlinux.org/packages.php?ID=62848).
 
 If you want to compile it manually, you need `libflac` and `libflac++`, which typically come with `flac` itself. You also need `cmake` and the rest of the regular build toolchain (`gcc` and friends).
 

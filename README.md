@@ -71,7 +71,7 @@ Q & A
 -----
 
 * *What formats are supported?*
-    * Currently, only [FLAC][2] is supported. This may change to include other lossless formats such as WAV or even ALAC, but if you are using one of those formats, you should consider converting your audio files to FLAC. You will get some disk space back (converting from WAV) and you will not depend on a proprietary audio format (converting from ALAC).
+    * Currently, only [FLAC][2] is supported. This may change to include other lossless formats such as WAV or even ALAC, but if you are using one of those formats, you should consider converting your audio files to FLAC. You will get some disk space back (if you are converting from WAV), and you won't lose any audio quality.
 * *Why only lossless audio?*
     * Because lossy files are much harder to hide fingerprints in, at least when trying to embed them into the samples. This is because the audio samples resulting from decoding the file depend on the decoder in use, and because doing any conversion on it to another lossy format would make such a fingerprint vanish.
     * This being said, the other possible fingerprint vectors (tags, seek table, album art, etc.) still apply. As such, it may be worthwhile to implement support for lossy formats.

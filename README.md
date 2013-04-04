@@ -10,11 +10,11 @@ Those recordings of sensitive plans that were given or leaked to you from a cert
 
 They are likely to be **fingerprinted**.
 
-Fingerprinting is the process of slightly modifying a file in order to encode information into it, without making the file substantially different; in fact, it is meant to be undetectably different from the true original file. It is the process of [steganographically][1] inserting a uniquely-identifying but very-hard-to-detect piece of information into the file.
+Fingerprinting is the process of slightly modifying a file in order to encode information into it, without making the file substantially different; in fact, it is meant to be undetectably different from the true original file. It is the process of [steganographically][Steganography] inserting a uniquely-identifying but very-hard-to-detect piece of information into the file.
 
 Then, should that file be published in a context where the source didn't intend that file to be published, the source can then recover this fingerprint out of the file, and know without doubt which entity caused the leak.
 
-[Steganography][1] has its uses and is a legitimate means of private, covert communication. However, using it to track people without telling them is not something the trackee would desire. This program attempts to give them the option to mitigate such tracking.
+[Steganography] has its uses and is a legitimate means of private, covert communication. However, using it to track people without telling them is not something the trackee would desire. This program attempts to give them the option to mitigate such tracking.
 
 Purpose
 -------
@@ -36,7 +36,7 @@ Since fingerprints are meant to be as hard to detect as possible, this program u
 Compiling
 ---------
 
-There is a package for [ascrubber in the AUR](https://aur.archlinux.org/packages.php?ID=62848).
+There is a package for [ascrubber in the AUR].
 
 If you want to compile it manually, you need `libflac` and `libflac++`, which typically come with `flac` itself. You also need `cmake` and the rest of the regular build toolchain (`gcc` and friends).
 
@@ -71,7 +71,7 @@ Q & A
 -----
 
 * *What formats are supported?*
-    * Currently, only [FLAC][2] is supported. This may change to include other lossless formats such as WAV or even ALAC, but if you are using one of those formats, you should consider converting your audio files to FLAC. You will get some disk space back (if you are converting from WAV), and you won't lose any audio quality.
+    * Currently, only [FLAC] is supported. This may change to include other lossless formats such as WAV or even ALAC, but if you are using one of those formats, you should consider converting your audio files to FLAC. You will get some disk space back (if you are converting from WAV), and you won't lose any audio quality.
 * *Why only lossless audio?*
     * Because lossy files are much harder to hide fingerprints in, at least when trying to embed them into the samples. This is because the audio samples resulting from decoding the file depend on the decoder in use, and because doing any conversion on it to another lossy format would make such a fingerprint vanish.
     * This being said, the other possible fingerprint vectors (tags, seek table, album art, etc.) still apply. As such, it may be worthwhile to implement support for lossy formats.
@@ -80,15 +80,18 @@ Q & A
     * Also keep in mind that you can disable scrubbing in any combination of the 3 areas the file (the first few samples, the last few samples, and everything in between). Disabling scrubbing in the middle of the file will leave the file effectively intact, excluding the first and last deciseconds of the file or so.
 * *What inspired the creation of this program?*
       * Other programs that have the same goal. Most of them work on image files or numerical data sets, not audio files. This program is an extension to audio files of the same concept. Here are some examples:
-          * [Metadata Anonymisation Toolkit][3] (*can also clean metadata from MP3 and OGG files*), included with [Tails][4]
-          * [DICOM Anonymizer][5]
-          * [Hachoir][6]
-          * [Cornell Anonymization Toolkit][7]
+          * [Metadata Anonymisation Toolkit] (*can also clean metadata from MP3 and OGG files*), included with [Tails]
+          * [Amazon MP3 Metadata Stripper]
+          * [DICOM Anonymizer]
+          * [Hachoir]
+          * [Cornell Anonymization Toolkit]
 
- [1]: https://en.wikipedia.org/wiki/Steganography
- [2]: http://flac.sourceforge.net/
- [3]: https://gitweb.torproject.org/user/jvoisin/mat.git
- [4]: https://tails.boum.org/
- [5]: http://sourceforge.net/projects/dicomanonymizer/
- [6]: https://bitbucket.org/haypo/hachoir/wiki/Home
- [7]: http://sourceforge.net/projects/anony-toolkit/
+ [Steganography]: https://en.wikipedia.org/wiki/Steganography
+ [ascrubber in the AUR]: https://aur.archlinux.org/packages/ascrubber-git
+ [FLAC]: http://flac.sourceforge.net/
+ [Metadata Anonymisation Toolkit]: https://gitweb.torproject.org/user/jvoisin/mat.git
+ [Tails]: https://tails.boum.org/
+ [Amazon MP3 Metadata Stripper]: https://github.com/amp3strip/amp3strip
+ [DICOM Anonymizer]: http://sourceforge.net/projects/dicomanonymizer/
+ [Hachoir]: https://bitbucket.org/haypo/hachoir/wiki/Home
+ [Cornell Anonymization Toolkit]: http://sourceforge.net/projects/anony-toolkit/

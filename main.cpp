@@ -36,12 +36,17 @@
 #define _STR(token) _STR_EXPAND(token)
 
 struct Arguments : public option::Arg {
-	static option::ArgStatus argumentError(bool msg, const char * msg1, const option::Option & option, const char * msg2)
-	{
+	static option::ArgStatus argumentError(bool msg, const char * msg1, const option::Option & option, const char * msg2) {
 		if(msg) {
 			std::cerr << "Error: " << msg1 << std::string(option.name).substr(0, option.namelen) << msg2 << std::endl;
 		}
 		return option::ARG_ILLEGAL;
+	}
+	static option::ArgStatus String(const option::Option & option, bool msg) {
+		if(!option.arg) {
+			return argumentError(msg, "Option ", option, " cannot be empty.");
+		}
+		return option::ARG_OK;
 	}
 	static option::ArgStatus Integer(const option::Option & option, bool msg) {
 		if(!option.arg) {
@@ -131,12 +136,13 @@ int main(int argc, char ** argv) {
 		                                                                  "  --force-nonzero      \tIf specified, the random offset applied to any scrubbed sample cannot be 0.\n"
 		                                                                  "                       \tThis ensures that the scrubbed samples are different to the original\n"
 		                                                                  "                       \tBy default, this feature is off (scrubbing can leave a sample untouched).\n")},
-		{TAGS,             0, "", "tags",             option::Arg::None,  "  --tags t1,t2,t3,...  \tA comma-separated list of Vorbis tags to keep from the original file.\n"
+		{TAGS,             0, "", "tags",             Arguments::String,  "  --tags t1,t2,t3,...  \tA comma-separated list of Vorbis tags to keep from the original file.\n"
 		                                                                  "                       \tSeveral tags, including custom or obscure ones, may be used to fingerprint a file.\n"
 		                                                                  "                       \tAs such, this program uses a whitelist approach to keeping tags, "
 		                                                                                           "and by default only keeps the tags that are either user-facing or unlikely to contain fingerprints.\n"
 		                                                                  "                       \tNote that it is especially dangerous to keep embeded album art images, as those may contain "
 		                                                                                           "steganographical fingerprints inside the picture, which are very hard to detect.\n"
+		                                                                  "                       \tTo remove all tags, set to the empty string.\n"
 		                                                                  "                       \tDefault value: " FLACSCRUBBER_DEFAULT_ALLOWEDTAGS},
 		{0,                0, 0,  0,                  0,                  0}
 	};

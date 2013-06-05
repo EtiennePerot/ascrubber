@@ -80,18 +80,18 @@ Q & A
     * Also keep in mind that you can disable scrubbing in any combination of the 3 areas the file (the first few samples, the last few samples, and everything in between). Disabling scrubbing in the middle of the file will leave the file effectively intact, excluding the first and last deciseconds of the file or so.
 * *What inspired the creation of this program?*
       * Other programs that have the same goal. Most of them work on image files or numerical data sets, not audio files. This program is an extension to audio files of the same concept. Here are some examples:
-          * [Metadata Anonymisation Toolkit] (*can also clean metadata from MP3 and OGG files*), included with [Tails]
+          * [Metadata Anonymisation Toolkit][Metadata Anonymisation Toolkit] (can also clean metadata from MP3 and OGG files), included with [Tails]
           * [Amazon MP3 Metadata Stripper]
           * [DICOM Anonymizer]
           * [Hachoir]
           * [Cornell Anonymization Toolkit]
 
- [Steganography]: https://en.wikipedia.org/wiki/Steganography
- [ascrubber in the AUR]: https://aur.archlinux.org/packages/ascrubber-git
- [FLAC]: http://flac.sourceforge.net/
- [Metadata Anonymisation Toolkit]: https://gitweb.torproject.org/user/jvoisin/mat.git
- [Tails]: https://tails.boum.org/
- [Amazon MP3 Metadata Stripper]: https://github.com/amp3strip/amp3strip
- [DICOM Anonymizer]: http://sourceforge.net/projects/dicomanonymizer/
- [Hachoir]: https://bitbucket.org/haypo/hachoir/wiki/Home
- [Cornell Anonymization Toolkit]: http://sourceforge.net/projects/anony-toolkit/
+[Steganography]: https://en.wikipedia.org/wiki/Steganography
+[ascrubber in the AUR]: https://aur.archlinux.org/packages/ascrubber-git
+[FLAC]: http://flac.sourceforge.net/
+[Metadata Anonymisation Toolkit]: https://gitweb.torproject.org/user/jvoisin/mat.git
+[Tails]: https://tails.boum.org/
+[Amazon MP3 Metadata Stripper]: https://github.com/amp3strip/amp3strip
+[DICOM Anonymizer]: http://sourceforge.net/projects/dicomanonymizer/
+[Hachoir]: https://bitbucket.org/haypo/hachoir/wiki/Home
+[Cornell Anonymization Toolkit]: http://sourceforge.net/projects/anony-toolkit/

@@ -111,14 +111,14 @@ int main(int argc, char ** argv) {
 		                                                                  "                       \tSamples range over all 32-bit integers.\n"
 		                                                                  "                       \tDefault value: " _STR(FLACSCRUBBER_DEFAULT_OTHERSAMPLESMAXOFFSET) ".\n"},
 		{MAX_OFFSET,       0, "", "all-max-offset",   Arguments::Integer, "  --all-max-offset N   \tShortcut to specify the maximum allowed offset to all 3 possible locations of a sample.\n"
-		                                                                  "                       \tIf set to 0, nothing will be scrubbed, which is probably not what you want."},
-		{FIRST_RATE,       0, "", "first-rate",       Arguments::Rate,    "  --first-rate R       \tProbably to scrubbing a sample in the beginning sample window.\n"
+		                                                                  "                       \tIf set to 0, nothing will be scrubbed, which is probably not what you want.\n"},
+		{FIRST_RATE,       0, "", "first-rate",       Arguments::Rate,    "  --first-rate R       \tProbability of scrubbing a sample in the beginning sample window.\n"
 		                                                                  "                       \tFor example, a rate of 0.25 would scrub about a fourth of all the samples in the beginning window.\n"
 		                                                                  "                       \tDefault value: " _STR(FLACSCRUBBER_DEFAULT_FIRSTSAMPLESSCRUBRATE) ".\n"},
-		{LAST_RATE,        0, "", "last-rate",        Arguments::Rate,    "  --last-rate R        \tProbably to scrubbing a sample in the end sample window.\n"
+		{LAST_RATE,        0, "", "last-rate",        Arguments::Rate,    "  --last-rate R        \tProbability of scrubbing a sample in the end sample window.\n"
 		                                                                  "                       \tFor example, a rate of 0.75 would scrub about three fourths of all the samples in the end window.\n"
 		                                                                  "                       \tDefault value: " _STR(FLACSCRUBBER_DEFAULT_LASTSAMPLESSCRUBRATE) ".\n"},
-		{OTHER_RATE,       0, "", "other-rate",       Arguments::Rate,    "  --other-rate R       \tProbably to scrubbing a sample in the middle of the file.\n"
+		{OTHER_RATE,       0, "", "other-rate",       Arguments::Rate,    "  --other-rate R       \tProbability of scrubbing a sample in the middle of the file.\n"
 		                                                                  "                       \tFor example, a rate of 0 would scrub leave all the samples in middle of the file intact.\n"
 		                                                                  "                       \tDefault value: " _STR(FLACSCRUBBER_DEFAULT_OTHERSAMPLESSCRUBRATE) ".\n"},
 		{RATE,             0, "", "all-rate",         Arguments::Rate,    "  --all-rate R         \tShortcut to specify the probability to scrub a sample in all 3 possible locations.\n"

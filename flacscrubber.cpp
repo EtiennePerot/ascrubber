@@ -31,6 +31,7 @@
 #include <sstream>
 #include <algorithm>
 #include <string.h>
+#include <math.h>
 #include "flacscrubber.h"
 
 FLACScrubber::FLACScrubber(std::string file) : FLAC::Decoder::File(), aOriginalFile(file) {
